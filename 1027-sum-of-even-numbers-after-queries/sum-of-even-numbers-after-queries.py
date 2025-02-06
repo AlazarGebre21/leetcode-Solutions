@@ -8,10 +8,7 @@ class Solution:
             
         for i in range(len(queries)):
             catch = nums[queries[i][1]]
-            print(catch)
             nums[queries[i][1]] = nums[queries[i][1]] + queries[i][0]
-            print(nums[queries[i][1]])
-            print()
             if catch % 2 != 0 and nums[queries[i][1]] % 2 == 0:
                 even_sum += nums[queries[i][1]]
             elif catch % 2 == 0 and nums[queries[i][1]] % 2 != 0:
