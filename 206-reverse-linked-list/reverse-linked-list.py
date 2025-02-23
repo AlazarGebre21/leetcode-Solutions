@@ -8,12 +8,19 @@ class Solution:
         temp = head
         prev = None
 
+        def display(head2):
+            temp = head2
+            while temp:
+                print(temp.val, end='->')
+                temp = temp.next
+
         while temp:
             storedir = temp.next
             temp.next = prev
             prev = temp
             temp = storedir
-        
+        display(prev)
+        display(head)
         return prev
             
         
