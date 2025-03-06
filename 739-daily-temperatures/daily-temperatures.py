@@ -5,13 +5,13 @@ class Solution:
 
         # create a mono decreasing stack which holds both the index and the value
 
-        for curr_index, curr_value in enumerate(temperatures):
+        for i in range(len(temperatures)):
 
-                while stack and curr_value > stack[-1][1]:
-                    poped_index, poped_value = stack.pop()
-                    answer[poped_index] = curr_index - poped_index
-                      
-                stack.append((curr_index,curr_value))
+                while stack and temperatures[i] > temperatures[stack[-1]]:
+                    pop_i = stack.pop()
+                    answer[pop_i] = i - pop_i
+
+                stack.append(i)
 
                 
         return answer
