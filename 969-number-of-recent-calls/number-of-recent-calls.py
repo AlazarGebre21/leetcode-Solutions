@@ -6,12 +6,10 @@ class RecentCounter:
         self.counter.append(t)
         start = t - 3000
         end = t
-        if start <= self.counter[0] <= end:
-           return len(self.counter)
-        else:
-            while not start <= self.counter[0] <= end:
-                self.counter.popleft()
-            return len(self.counter)
+        
+        while not start <= self.counter[0] <= end:
+            self.counter.popleft()
+        return len(self.counter)
         
 
 
