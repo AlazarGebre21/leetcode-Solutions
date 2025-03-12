@@ -1,15 +1,20 @@
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
-        dq = deque([0,1,0])
+        
+        def pascal(rowIndex):
 
-        for i in range(rowIndex):
-            temp = deque()
-            for i in range(len(dq) - 1):
-                val = dq[i] + dq[i+1]
-                temp.append(val)
-            dq = temp
-            dq.appendleft(0)
-            dq.append(0)
-        dq.pop()
-        dq.popleft()
-        return list(dq)
+
+            if rowIndex == 0:
+                return [1]
+
+            arr = pascal(rowIndex-1)
+            temp = []
+            for i in range(len(arr)-1):
+                temp.append(arr[i] + arr[i+1])
+            
+
+            
+            return [1] + temp + [1]
+
+        arr = []
+        return pascal(rowIndex)
