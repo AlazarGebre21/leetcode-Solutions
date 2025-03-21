@@ -7,16 +7,25 @@
 class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
+        p = root
+        stack = []
+        visted = set()
 
-        def postorder(root):
-            if root:
+        while p or stack:
 
-                postorder(root.left)
-                postorder(root.right)
-                ans.append(root.val)
-        
+            if p:
 
-        postorder(root)
+                stack.append(p)
+                visted.add(p)
+                stack.append(p.right)
+                p = p.left
+            
+            else:
+                
+                p = stack.pop()
 
+                if p and p in visted:
+                    ans.append(p.val)
+                    p = None
         return ans
-
+                
