@@ -1,50 +1,47 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
+        a, b = -1, -1
 
-        def binary_search(left,right):
-
+        def search_right_occurance(left,right):
+            nonlocal a
             while left <= right:
 
                 mid = (left + right) // 2
 
                 if nums[mid] == target:
-                    return mid
+                    a = mid
+                    left = mid + 1
                 
                 elif target > nums[mid]:
                     left = mid + 1
                 else:
                     right = mid - 1
             
-            return -1
+            return a
         
 
-        left, right = 0, len(nums) - 1
 
-        mid = binary_search(left, right)
+        def search_left_occurance(left,right):
+            nonlocal b
+            while left <= right:
 
-        if mid == -1:
-            return [-1,-1]
-        
-        print(mid)
+                mid = (left + right) // 2
 
-
-        i = mid
-        j = mid
-
-        count_r = 0
-        count_l = 0
-
-        while i < len(nums) and nums[i] == target:
-            count_r += 1
-            i += 1
-
-        while j >= 0 and nums[j] == nums[mid]:
-            count_l += 1
-            j -= 1
-        
-        return[mid - count_l + 1, mid + count_r - 1]
+                if nums[mid] == target:
+                    b = mid
+                    right = mid - 1
+                
+                elif target > nums[mid]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            
+            return b
         
         
+        
+        return [search_left_occurance(0, len(nums) - 1), search_right_occurance(0, len(nums) - 1)]
+
 
         
 
