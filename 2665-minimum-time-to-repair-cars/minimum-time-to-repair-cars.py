@@ -7,13 +7,7 @@ class Solution:
             for i in range(len(ranks)):
                 cars_fixed += floor(pow(mid/ranks[i],0.5))
 
-            if cars_fixed >= cars:
-                return True
-            else:
-                return False
-
-
-
+            return cars_fixed >= cars
 
 
         low = 1
