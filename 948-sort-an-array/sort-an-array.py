@@ -1,29 +1,45 @@
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        #removing all the negatives
-        minimum = abs(min(nums))
-        for i in range(len(nums)):
-            nums[i] += minimum
 
-        #hashing the values to index by creating another array to refer by index latter
-        hash_map = [0] * (max(nums) + 1)
-        for i in range(len(nums)):
-            hash_map[nums[i]] += 1
+        def merge(left_half, right_half):
+             left = 0
+             right = 0
+             merged = []
 
-        #reasigning the value of nums by using the index of the hashmaps
-        i = 0
-        j = 0
-        while i < len(hash_map):
-            if hash_map[i] == 0:
-                i += 1
-                continue
-            elif hash_map[i] >= 0:
-                while hash_map[i] > 0:
-                    nums[j] = i
-                    hash_map[i] -= 1
-                    j += 1
-        #removing the minimun from the nums to make the element as expected
-        for i in range(len(nums)):
-            nums[i] -= minimum
-        return nums
+             while left < len(left_half) and right < len(right_half):
 
+                if left_half[left] <= right_half[right]:
+                    merged.append(left_half[left])
+                    left += 1
+                
+                else:
+                    merged.append(right_half[right])
+                    right += 1
+            
+             
+             while left < len(left_half):
+                merged.append(left_half[left])
+                left += 1
+
+             while right < len(right_half):
+                merged.append(right_half[right])
+                right += 1
+             
+             return merged
+
+
+
+        def merge_sort(left,right,arr):
+
+            if left == right:
+                return [arr[left]]
+
+            mid = (left + right) // 2
+
+            left = merge_sort(left, mid, arr)
+
+            right = merge_sort(mid + 1, right,arr)
+
+            return merge(left,right)
+        
+        return merge_sort(0,len(nums) - 1,nums)
