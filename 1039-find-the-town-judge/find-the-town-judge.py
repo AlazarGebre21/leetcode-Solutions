@@ -14,16 +14,10 @@ class Solution:
         
         for _from, _to in trust:
             directed_graph[_from].add(_to)
-        
-        print(directed_graph)
 
         for key,values in directed_graph.items():
             if not len(values):
                 is_it_judge = key
-            
-
-        if not is_it_judge:
-            return -1
         
         for key, value in directed_graph.items():
             if key != is_it_judge and is_it_judge not in value:
