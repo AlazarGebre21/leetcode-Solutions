@@ -6,26 +6,27 @@ class Solution:
             graph[u].append(v)
             graph[v].append(u)
         
-
-        def dfs(vertex):
+        
+        
+        stack = [source]
+        visited.add(source)
+        while stack:
+            vertex = stack.pop()
 
             if vertex == destination:
                 return True
-            
-            visited.add(vertex)
-            
+
             for neighbour in graph[vertex]:
-
                 if neighbour not in visited:
-                    is_there_path = dfs(neighbour)
-
-                    if is_there_path:
-                        return True
-                
-            return False
+                    stack.append(neighbour)
+                    visited.add(neighbour)
         
+        return False
+                
+                
 
-        return dfs(source)
+        
+        
         
 
 
