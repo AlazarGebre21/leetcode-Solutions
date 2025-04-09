@@ -19,11 +19,12 @@ class Solution:
             return 0 <= row_pos < rows and 0 <= col_pos < cols
         
 
-        
+        # dfs traversal function to only go through the island and calculated the perimeter whenever the neighbours of the land cell is out-of bound or water
         def dfs(start_r,start_c):
             nonlocal perimeter
-            if grid[start_r][start_c] == 0 or inbound(start_r,start_c) == False:
-                return perimeter
+            # if grid[start_r][start_c] == 0 or inbound(start_r,start_c) == False:
+            #     print('Yes')
+            #     return perimeter
 
 
             grid[start_r][start_c] = -1
@@ -40,6 +41,8 @@ class Solution:
                     perimeter += 1
             
             return perimeter
+
+        
         r, c = starting_pos(0,0)
         return dfs(r,c)
                 
