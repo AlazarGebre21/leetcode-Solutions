@@ -6,30 +6,24 @@ class Solution:
 
         def dfs(vertex):
 
-            for i in range(len(graph[vertex])):
-                if vertex not in my_dict:
-                    my_dict[vertex] = 'red'
-                if graph[vertex][i] in my_dict:
-                    if my_dict[vertex] == my_dict[graph[vertex][i]]:
+            if vertex not in my_dict:
+                my_dict[vertex] = 'red'
+
+            for n in graph[vertex]:
+                if n in my_dict:
+                    if my_dict[vertex] == my_dict[n]:
                         return False
-                    
                 else:
-                    if my_dict[vertex] == 'red':
-                        my_dict[graph[vertex][i]] = 'blue'
-                        dfs(graph[vertex][i])
-                    else:
-                        my_dict[graph[vertex][i]] = 'red'
-                        dfs(graph[vertex][i])
+                    my_dict[n] = 'blue' if my_dict[vertex] == 'red' else 'red'
+                    
+                    if not dfs(n):
+                        return False
+
             return True
 
-        result = [dfs(i) for i in range(len(graph))]
-        print(result)
-        return False if False in result else True
-                    
-
-                
-        
-        
-
-
-            
+        for i in range(len(graph)):
+            if i not in my_dict:
+                if not dfs(i):
+                    return False
+       
+        return True 
