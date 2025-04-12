@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        def dfs(node, cur_max, cur_min):
+        def my_dfs(node, cur_max, cur_min):
             if not node:
                 return cur_max - cur_min
             
@@ -15,9 +15,9 @@ class Solution:
             cur_min = min(cur_min, node.val)
 
             # Continue DFS on children
-            left = dfs(node.left, cur_max, cur_min)
-            right = dfs(node.right, cur_max, cur_min)
+            left = my_dfs(node.left, cur_max, cur_min)
+            right = my_dfs(node.right, cur_max, cur_min)
 
             return max(left, right)
 
-        return dfs(root, root.val, root.val)
+        return my_dfs(root, root.val, root.val)
