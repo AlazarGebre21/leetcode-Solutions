@@ -6,7 +6,7 @@
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
-        def merge(left_side, right_side):
+        def merging(left_side, right_side):
 
             dummy_node = ListNode()
             curr = dummy_node
@@ -55,6 +55,6 @@ class Solution:
             left_side = merge_sort(temp)
             right_side = merge_sort(right)
             
-            return merge(left_side, right_side)
+            return merging(left_side, right_side)
         
         return merge_sort(head)
