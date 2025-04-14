@@ -7,43 +7,22 @@
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         
-        queue = deque()
-        queue.append(root)
-        graph = defaultdict(list)
-        _sum = 0
-        arr = []
-        
-        while queue:
-            node = queue.popleft()
+        def dfs(node, current_sum):
+
+            if not node:
+                return 0
             
-            if node and node.left:
-                left = node.left
-                queue.append(left)
-                graph[node].append(left)
+            current_sum = current_sum * 10 + node.val
+            
+
+            if not node.left and not node.right:
+                return current_sum
+            
+            return dfs(node.left, current_sum) + dfs(node.right, current_sum)
+        
+        return dfs(root,0)
 
 
-            if node and node.right:
-                right = node.right
-                queue.append(right)
-                graph[node].append(right)
-        
-            
-            
-        def dfs(node):
-            nonlocal _sum
-            
-            arr.append(node.val)
-            
-            if node not in graph:
-                _sum += int(''.join(map(str, arr)))
-            else:
-                for n in graph[node]:
-                    dfs(n)
-            arr.pop()            
-            
-            
-        dfs(root)
-        return _sum
 
             
         
