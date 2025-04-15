@@ -8,13 +8,13 @@ class Solution:
         mark = 1
 
         queue = deque()
-        visit = set()
         for i in range(n):
             for j in range(m):
                 if arr[i][j] == 1:
                     queue.append((i, j))
-                    arr[i][j] = 0
-                    visit.add((i, j))
+                    arr[i][j] = 'w'
+                else:
+                    arr[i][j] = False
         
 
         move = [(1, 0), (0, 1), (-1, 0), (0, -1)]
@@ -33,11 +33,16 @@ class Solution:
                     ny = j + dy
 
                     if valid(nx, ny):
-                        if (nx, ny) not in visit:
-                            visit.add((nx,ny))
+                        if not arr[nx][ny]:
                             arr[nx][ny] = mark
                             queue.append((nx, ny))
             mark += 1
+        
+
+        for i in range(n):
+            for j in range(m):
+                if arr[i][j] == 'w':
+                    arr[i][j] = 0
         return arr
 
 
