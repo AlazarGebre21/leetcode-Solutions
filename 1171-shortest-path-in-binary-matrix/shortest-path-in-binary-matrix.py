@@ -32,20 +32,16 @@ class Solution:
                     nc = c + dc
 
 
-                    if inbound(nr,nc) and grid[nr][nc] == 0 and ((nr,nc)) not in que:
+                    if inbound(nr,nc) and grid[nr][nc] == 0:
                         que.append((nr,nc))
+                        grid[nr][nc] = 1
+                        
+                
                     
             if not clear_path:
                 count += 1  
             else:
                 break
                 
-        
 
         return count + 1 if clear_path else -1
-
-        
-
-
-
-
