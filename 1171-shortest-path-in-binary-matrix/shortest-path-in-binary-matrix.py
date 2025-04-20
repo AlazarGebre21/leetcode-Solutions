@@ -8,7 +8,7 @@ class Solution:
 
         directions = [(1,0),(-1,0),(0,1),(0,-1),(-1,-1),(1,1),(-1,1),(1,-1)]
 
-        def inbound(r,c):
+        def isvalid(r,c):
             return 0<= r < n and 0 <= c < n
         
         if grid[0][0] == 1:
@@ -32,7 +32,7 @@ class Solution:
                     nc = c + dc
 
 
-                    if inbound(nr,nc) and grid[nr][nc] == 0:
+                    if isvalid(nr,nc) and grid[nr][nc] == 0:
                         que.append((nr,nc))
                         grid[nr][nc] = 1
                         
