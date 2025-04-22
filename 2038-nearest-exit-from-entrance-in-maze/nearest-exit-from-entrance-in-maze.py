@@ -1,47 +1,45 @@
 class Solution:
     def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+
+        rows = len(maze)
+        cols = len(maze[0])
+        directions = [(1,0),(-1,0),(0,1),(0,-1)]
+
+        def exit(r,c):
+            return (r == rows - 1 or r == 0 or c == 0 or c == cols - 1 ) and [r,c] != entrance
+        
+        def inbound(r,c):
+            return 0 <= r < rows and 0 <= c < cols
         
 
-        n = len(maze)
-        m = len(maze[0])
+        que = deque([entrance])
+        r, c = entrance
+        maze[r][c] = '+'
+        steps = 0
 
-        def valid(r,c):
+        while que:
 
-            return 0<= r < n and 0 <= c < m and maze[r][c] == '.'
-        
+            for _ in range(len(que)):
 
-        def end(r,c):
-            return r == 0 or c == 0 or r == n - 1 or c == m - 1
-        
+                r, c = que.popleft()
 
-        queue = deque([tuple(entrance)])
-        direction = [(1,0),(0,1),(0,-1),(-1,0)]
-        shortest_path = 1
-        while queue:
+                if exit(r,c):
+                    return steps
 
-            for _ in range(len(queue)):
+                for dr, dc in directions:
+                    nr = dr + r
+                    nc = dc + c
 
-                i, j = queue.popleft()
-                if maze[i][j] == '+':
-                    continue
-                maze[i][j] = '+'
+                    if inbound(nr, nc) and maze[nr][nc] == '.':
+                        que.append((nr,nc))
+                        maze[nr][nc] = '+'
 
-                
-                for dx, dy in direction:
-
-                    nx = i + dx
-                    ny = j + dy
-                    
-                    if valid(nx,ny):
-                        if end(nx,ny):
-                            print(nx, ny)
-                            return shortest_path
-
-                        queue.append((nx,ny))
-
-            shortest_path += 1
+                        
+            
+            steps += 1
         
         return -1
-            
+
+
 
         
