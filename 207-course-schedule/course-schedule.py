@@ -1,39 +1,39 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = defaultdict(list)
-        c = [1] * numCourses
+       graph = defaultdict(list)
+       n = numCourses
+       for a, b in prerequisites:
+        graph[b].append(a)
+       
+       color = [0] * n
 
-        for _ከዛ, _መጀመራያ in  prerequisites:
-            graph[_መጀመራያ].append(_ከዛ)
+       def has_cycle(parent):
 
+            color[parent] = 1
 
-        def cycle(vertex):
+            for child in graph[parent]:
 
-            if c[vertex] == 2:
-                return True
-            if c[vertex] == 3:
-                return False
-
-            c[vertex] = 2
-
-            for n in graph[vertex]:
-                if c[n] == 2:
+                if color[child] == 1:
                     return True
-                
-                if cycle(n):
+                if color[child] == 0 and has_cycle(child):
                     return True
 
-            c[vertex] = 3
+            color[parent] = 2
             return False
-        
-        
 
-
-        for i in range(numCourses):
-            if cycle(i):
+       for i in range(n):
+        if color[i] == 0:
+            if has_cycle(i):
                 return False
-        return True
         
+       return True
+
+
+            
+        
+
+
+
 
         
 
