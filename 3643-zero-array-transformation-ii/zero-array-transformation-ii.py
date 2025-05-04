@@ -3,32 +3,39 @@ class Solution:
 
         def checker(mid):
 
-            prefix_sum = [0] * len(nums)
+            arr = [0] * (len(nums))
 
             for i in range(mid):
-                start, end, val = queries[i]
-                prefix_sum[start] += val
 
-                if end + 1 < len(prefix_sum):
-                    prefix_sum[end+1] -= val
-            
-            for i in range(1,len(prefix_sum)):
-                prefix_sum[i] = prefix_sum[i] + prefix_sum[i-1]
-            
-            for i in range(len(prefix_sum)):
-                if nums[i] > prefix_sum[i]:
-                    return False
+                start, end, val  = queries[i]
 
-            return True
+                arr[start] += val
+
+                if end + 1 < len(arr):
+
+                    arr[end + 1] -= val
+            
+            for i in range(1, len(arr)):
+
+                arr[i] = arr[i - 1] + arr[i]
         
-
-
-        low = 0 
-        high = len(queries) - 1
-
-        if not checker(high + 1):
-            return -1
             
+            for a, b in zip(nums, arr):
+
+                if a > b:
+                    return False
+           
+            return True
+
+
+
+
+        low = 0
+        
+        high = len(queries) - 1
+        
+        if not checker(len(queries)):
+            return -1
 
         while low <= high:
 
@@ -39,5 +46,7 @@ class Solution:
             else:
                 low = mid + 1
         
+
         return low
+
 
