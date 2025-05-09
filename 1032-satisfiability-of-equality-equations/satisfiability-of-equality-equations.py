@@ -6,7 +6,6 @@ class Solution:
             def __init__(self, alphabets):
                 self.parent = {letter:letter for letter in alphabets}
                 self.size = {letter:1 for letter in alphabets}
-                self.satisfiability = True
                 
             
             def find(self,x):
@@ -29,32 +28,32 @@ class Solution:
                     else:
                         self.parent[parent_x] = parent_y
                         self.size[parent_y] += self.size[parent_x]
-            
+        
 
-        alphabets = [chr(i) for i in range(ord('a'), ord('z')+1)]
-        # print(alphabets)
+
+        alphabets = [chr(i) for i in range(ord('a'), ord('z') + 1)]
         uf = UnionFind(alphabets)
+
+        for letter1, op1, op2, letter2 in equations:
+
+            op = op1 + op2
+            uf.union(letter1,letter2,op)
         
-        for letter1, eq1, eq2, letter2 in equations:
 
-            sign = eq1 + eq2
+        for letter1, op1, op2, letter2 in equations:
+            
+            op = op1 + op2
 
-            uf.union(letter1, letter2,sign)
-        
+            cont1 = uf.find(letter1)
+            cont2 = uf.find(letter2)
 
-        for letter1, eq1, eq2, letter2 in equations:
-
-            sign = eq1 + eq2
-
-            if sign == '==':
-                if uf.find(letter1) != uf.find(letter2):
-                    return False
-            else:
-                if uf.find(letter1) == uf.find(letter2):
-                    return False
-                
+            if op == '==' and cont1 != cont2:
+                return False
+            elif op == '!=' and cont1 == cont2:
+                return False
         
         return True
+                
 
 
         
@@ -62,6 +61,3 @@ class Solution:
 
 
 
-
-
-        
