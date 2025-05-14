@@ -2,12 +2,13 @@ class Solution:
     def findArray(self, pref: List[int]) -> List[int]:
         
 
-        ans = [0]
-        ans[0] = pref[0]
+        ans = []
+        prev = 0
 
 
-        for i in range(1,len(pref)):
+        for i in range(len(pref)):
 
-            ans.append(pref[i-1] ^ pref[i])
+            ans.append(pref[i] ^ prev)
+            prev = pref[i]
         
         return ans
