@@ -1,17 +1,39 @@
 class Solution:
     def findTheLongestSubstring(self, s: str) -> int:
-        vowel_to_bit = {'a': 0, 'e': 1, 'i': 2, 'o': 3, 'u': 4}
-        seen = {0: -1}  # state 0 seen at index -1
-        state = 0
+        
+
+        my_dict ={
+            'a':1,
+            'e':2,
+            'i':4,
+            'o':8,
+            'u':16
+        }
+        
+        
+        previous_prefix = {0:-1}
+        prefix = 0
         max_len = 0
 
-        for i, ch in enumerate(s):
-            if ch in vowel_to_bit:
-                state ^= (1 << vowel_to_bit[ch])
+
+        for i in range(len(s)):
+
+            if s[i] in my_dict:
+                prefix = prefix ^ my_dict[s[i]]
             
-            if state in seen:
-                max_len = max(max_len, i - seen[state])
+            if prefix in previous_prefix:
+
+                max_len = max(max_len, i - previous_prefix[prefix])
+
             else:
-                seen[state] = i
+                previous_prefix[prefix] = i
+        
 
         return max_len
+
+    
+
+
+
+
+    
