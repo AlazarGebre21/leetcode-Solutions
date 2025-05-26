@@ -3,7 +3,7 @@ class Solution:
 
         # We could do it by iteration but come on we are going to iterate billion times in the worest case so ...
 
-        sh = 0
+        shif = 0
 
         # why not handle the common prefix of all the numbers in that range that does not change meaning the common prefix of all the numbers in which there value does not flip over the course
 
@@ -39,9 +39,9 @@ class Solution:
 
         while left != right:
 
-            sh += 1
+            shif += 1
             left >>= 1
             right >>= 1
         
-        return left << sh
+        return left << shif
 
