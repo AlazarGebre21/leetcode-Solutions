@@ -1,12 +1,12 @@
 class Solution:
     def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:
         
-        graph = defaultdict(list)
+        grap_h = defaultdict(list)
         n = len(quiet)
         ans = [0] * n
 
         for _from, _to in richer:
-            graph[_to].append(_from)
+            grap_h[_to].append(_from)
 
         my_dict = {}
 
@@ -16,7 +16,7 @@ class Solution:
 
         
 
-        # print(graph)
+        # print(grap_h)
 
         def bfs(node):
             _min = float('inf')
@@ -36,7 +36,7 @@ class Solution:
 
                     _min = min(_min, quiet[m])
 
-                    for child in graph[m]:
+                    for child in grap_h[m]:
                         if child not in visited:
                             que.append(child)
 
