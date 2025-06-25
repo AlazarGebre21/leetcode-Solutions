@@ -1,21 +1,28 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        answer = [0] * len(temperatures)
         stack = []
+        ans = [0] * len(temperatures)
 
-        # create a mono decreasing stack which holds both the index and the value
+        for i in range(len(temperatures)):
+            temperatures[i] = (temperatures[i],i)
+
 
         for i in range(len(temperatures)):
 
-                while stack and temperatures[i] > temperatures[stack[-1]]:
-                    pop_i = stack.pop()
-                    answer[pop_i] = i - pop_i
+            if stack:
+                if stack[-1][0] >= temperatures[i][0]:
+                    stack.append(temperatures[i])
+                    
+                else:
+                    while stack and stack[-1][0] < temperatures[i][0]:
+                        ans[stack[-1][1]] = temperatures[i][1] - stack[-1][1]
+                        stack.pop()
+                    else:
+                        stack.append(temperatures[i])
+                        continue
+            else:
+                stack.append(temperatures[i])
 
-                stack.append(i)
+        
 
-                
-        return answer
-                
-
-
-                     
+        return ans
