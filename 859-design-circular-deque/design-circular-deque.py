@@ -1,65 +1,73 @@
 class MyCircularDeque:
 
     def __init__(self, k: int):
-        self.k = k
-        self.cir_que = deque([])
+        self.que = [0] * k
+        self.front = 0
+        self.size = 0
+    
+    def _index(self, idx: int) -> int:
+        return (idx % len(self.que))
+
 
     def insertFront(self, value: int) -> bool:
-        if len(self.cir_que) < self.k:
-            self.cir_que.appendleft(value)
-            return True
-        else:
+        if self.isFull():
             return False
+        self.front = self._index(self.front - 1)
+        self.que[self.front] = value
+        self.size += 1
+        return True
+        
+
+        
     def insertLast(self, value: int) -> bool:
-        if len(self.cir_que) < self.k:
-            self.cir_que.append(value)
-            return True
-        else:
+        if self.isFull():
             return False
+        rear = self._index(self.front + self.size)
+        self.que[rear] = value
+        self.size += 1
+        return True
+        
+        
         
     def deleteFront(self) -> bool:
-        if len(self.cir_que) != 0:
-            self.cir_que.popleft()
-            return True
-        else:
+        if self.isEmpty():
             return False
+        self.front = self._index(self.front + 1)
+        self.size -= 1
+        return True
+
+        
+    def deleteLast(self) -> bool:
+        if self.isEmpty():
+            return False
+        self.size -= 1
+        return True
         
 
-    def deleteLast(self) -> bool:
-        if len(self.cir_que) != 0:
-            self.cir_que.pop()
-            return True
-        else:
-            return False
-        
     def getFront(self) -> int:
-        if len(self.cir_que) != 0:
-            return self.cir_que[0]
-            
-        else:
+        if self.isEmpty():
             return -1
+        return self.que[self.front]
+        
         
     def getRear(self) -> int:
-        if len(self.cir_que) != 0:
-            return self.cir_que[-1]
-            
-        else:
+        if self.isEmpty():
             return -1
+        rear = self._index(self.front + self.size - 1)
+        return self.que[rear]
+        
         
     def isEmpty(self) -> bool:
-        if len(self.cir_que) != 0:
-            return False
-            
-        else:
+        if self.size == 0:
             return True
-
-    def isFull(self) -> bool:
-        if len(self.cir_que) != self.k:
-            return False
-        else:
-            return True
+        return False
         
 
+    def isFull(self) -> bool:
+        if self.size == len(self.que):
+            return True
+        return False
+        
 
 # Your MyCircularDeque object will be instantiated and called as such:
 # obj = MyCircularDeque(self.k)
