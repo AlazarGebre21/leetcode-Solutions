@@ -12,28 +12,31 @@ class Trie:
         cur[26] = True
 
 
-        
 
-    def search(self, word: str) -> bool:
-        cur = self.root
-        for c in word:
-            if cur[ord(c)-97] == None:
-                return False
+    def search(self, word: str) -> bool:    
+       cur = self.root
+       for c in word:
+        if cur[ord(c)-97] != None:
             cur = cur[ord(c)-97]
+        else:
+            return False
 
+       return True if cur[26] else False
         
-        return True if cur[26] else False
+      
          
         
 
     def startsWith(self, prefix: str) -> bool:
         cur = self.root
+
         for c in prefix:
-            if cur[ord(c) - 97] == None:
+            if cur[ord(c)-97] != None:
+                cur = cur[ord(c)-97]
+            else:
                 return False
-            cur = cur[ord(c)-97]
-        
         return True
+        
         
 
 
