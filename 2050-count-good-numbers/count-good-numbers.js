@@ -14,7 +14,8 @@ var countGoodNumbers = function(n) {
        
         while (exp > 0n) {            
             if (exp % 2n === 1n) {   
-                res = (res * base) % modulo; 
+                res = (res * base) % modulo;
+                exp -= 1n 
             }
 
            
